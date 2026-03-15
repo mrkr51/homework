@@ -1,0 +1,41 @@
+Table clients {
+  id integer [primary key, increment]
+  full_name varchar
+  phone varchar
+}
+
+Table ingredients {
+  id integer [primary key, increment]
+  name varchar
+  unit varchar
+  price_per_unit decimal
+}
+
+Table recipes {
+  id integer [primary key, increment]
+  name varchar
+  base_selling_price decimal
+}
+
+Table recipe_ingredients {
+  recipe_id integer
+  ingredient_id integer
+  quantity decimal
+  Indexes {
+    (recipe_id, ingredient_id) [pk]
+  }
+}
+
+Table orders {
+  id integer [primary key, increment]
+  client_id integer
+  recipe_id integer
+  order_date date
+  total_price decimal
+  status varchar
+}
+
+Ref: recipe_ingredients.recipe_id > recipes.id
+Ref: recipe_ingredients.ingredient_id > ingredients.id
+Ref: orders.client_id > clients.id
+Ref: orders.recipe_id > recipes.id
